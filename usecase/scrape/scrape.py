@@ -26,7 +26,6 @@ def get_thesis(url: str) -> Thesis.Thesis:
         sup.decompose()
 
     abstract: str = soup.select_one("#Abs1-content > p").get_text()
-    # TODO: nth-childの分だけforを回す
     introductions = soup.select("#Sec1-content > p")
     _introductions = ""
     for intro in introductions:
