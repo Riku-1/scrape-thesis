@@ -20,16 +20,16 @@ class ScrapeUseCase(ABC):
         論文のドメインクラスを取得する
         :return:
         """
-        soup = self.get_soup()
-        abstract = self.get_abstract(soup)
-        introduction = self.get_introduction(soup)
+        soup = self.__get_soup()
+        abstract = self._get_abstract(soup)
+        introduction = self._get_introduction(soup)
         return Thesis(
             self.url,
             delete_brackets(abstract),
             delete_brackets(introduction)
         )
 
-    def get_soup(self) -> BeautifulSoup:
+    def __get_soup(self) -> BeautifulSoup:
         """
         beautiful soupを使ってページを取得する
         :return:
@@ -50,7 +50,7 @@ class ScrapeUseCase(ABC):
         return soup
 
     @abstractmethod
-    def get_abstract(self, soup: BeautifulSoup) -> str:
+    def _get_abstract(self, soup: BeautifulSoup) -> str:
         """
         アブストラクトを取得する
         :param soup:
@@ -59,7 +59,7 @@ class ScrapeUseCase(ABC):
         pass
 
     @abstractmethod
-    def get_introduction(self, soup: BeautifulSoup) -> str:
+    def _get_introduction(self, soup: BeautifulSoup) -> str:
         """
         イントロダクションを取得する
         :param soup:

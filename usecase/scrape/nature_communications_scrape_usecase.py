@@ -4,10 +4,10 @@ from usecase.scrape.scrape_usecase import ScrapeUseCase
 
 
 class NatureCommunicationsScrapeUseCase(ScrapeUseCase):
-    def get_abstract(self, soup: BeautifulSoup) -> str:
+    def _get_abstract(self, soup: BeautifulSoup) -> str:
         return soup.select_one("#Abs1-content > p").get_text()
 
-    def get_introduction(self, soup: BeautifulSoup) -> str:
+    def _get_introduction(self, soup: BeautifulSoup) -> str:
         introductions = soup.select("#Sec1-content > p")
         _introductions = ""
         for intro in introductions:
