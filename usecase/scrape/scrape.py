@@ -1,11 +1,11 @@
 import urllib3
 from bs4 import BeautifulSoup
 
-from domain import Thesis
+from domain.thesis import Thesis
 import formatting
 
 
-def get_thesis(url: str) -> Thesis.Thesis:
+def get_thesis(url: str) -> Thesis:
     """
     論文を取得する
     :param url:
@@ -31,7 +31,7 @@ def get_thesis(url: str) -> Thesis.Thesis:
     for intro in introductions:
         _introductions += intro.get_text()
 
-    return Thesis.Thesis(
+    return Thesis(
         url,
         formatting.delete_brackets(abstract),
         formatting.delete_brackets(_introductions)

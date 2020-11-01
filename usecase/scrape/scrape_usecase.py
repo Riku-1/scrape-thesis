@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from bs4 import BeautifulSoup
 
-from domain.Thesis import Thesis
+from domain.thesis import Thesis
 
 
 @dataclass
