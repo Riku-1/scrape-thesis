@@ -3,6 +3,8 @@ import re
 import urllib3
 from bs4 import BeautifulSoup
 
+import string
+
 url = "https://www.nature.com/articles/s41467-020-18002-w"
 # header偽装
 headers = {
@@ -15,6 +17,5 @@ r: urllib3.HTTPResponse = http.request("GET", url, headers=headers)
 soup = BeautifulSoup(r.data, "html.parser")
 abstract: str = soup.select_one("#Abs1-content > p").get_text()
 
-# TODO: figureを含む場合は削除対象から除くようにする
-_abstract = re.sub(r"\(.+?\)", "", abstract)
+_abstract = string.delete_brackets(abstract)
 print(_abstract)
