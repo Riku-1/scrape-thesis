@@ -16,6 +16,10 @@ r: urllib3.HTTPResponse = http.request("GET", url, headers=headers)
 
 soup = BeautifulSoup(r.data, "html.parser")
 abstract: str = soup.select_one("#Abs1-content > p").get_text()
+# TODO: nth-childの分だけforを回す
+introduction: str = soup.select_one("#Sec1-content > p:nth-child(2)").get_text()
 
 _abstract = string.delete_brackets(abstract)
+_introduction = string.delete_brackets(introduction)
+
 print(_abstract)
