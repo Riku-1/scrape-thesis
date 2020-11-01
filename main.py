@@ -1,9 +1,7 @@
-import re
-
 import urllib3
 from bs4 import BeautifulSoup
 
-import string
+import formatting
 
 url = "https://www.nature.com/articles/s41467-020-18002-w"
 # header偽装
@@ -19,7 +17,7 @@ abstract: str = soup.select_one("#Abs1-content > p").get_text()
 # TODO: nth-childの分だけforを回す
 introduction: str = soup.select_one("#Sec1-content > p:nth-child(2)").get_text()
 
-_abstract = string.delete_brackets(abstract)
-_introduction = string.delete_brackets(introduction)
+_abstract = formatting.delete_brackets(abstract)
+_introduction = formatting.delete_brackets(introduction)
 
 print(_abstract)
