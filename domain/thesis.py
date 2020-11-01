@@ -6,5 +6,6 @@ class Thesis:
     """
     論文クラス
     """
+    url: str
     abstract: str
     introduction: str
