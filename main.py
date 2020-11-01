@@ -13,6 +13,11 @@ http = urllib3.PoolManager()
 r: urllib3.HTTPResponse = http.request("GET", url, headers=headers)
 
 soup = BeautifulSoup(r.data, "html.parser")
+
+# 上付き文字を消去
+for sup in soup("sup"):
+    sup.decompose()
+
 abstract: str = soup.select_one("#Abs1-content > p").get_text()
 # TODO: nth-childの分だけforを回す
 introduction: str = soup.select_one("#Sec1-content > p:nth-child(2)").get_text()
