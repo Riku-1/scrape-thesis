@@ -32,6 +32,7 @@ def get_thesis(url: str) -> Thesis.Thesis:
         _introductions += intro.get_text()
 
     return Thesis.Thesis(
+        url,
         formatting.delete_brackets(abstract),
         formatting.delete_brackets(_introductions)
     )
