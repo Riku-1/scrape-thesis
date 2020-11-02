@@ -11,7 +11,7 @@ from formatting import delete_brackets
 @dataclass
 class ScrapeUseCase(ABC):
     """"
-    論文スクレイピングユースケースの基底クラスを作成
+    論文スクレイピングユースケースの基底クラス
     """
     url: str
 
