@@ -33,3 +33,9 @@ class NatureCommunicationsScrapeUseCase(ScrapeUseCase):
 
     def _get_introduction(self, soup: BeautifulSoup) -> str:
         return _get_section(soup, "Introduction")
+
+    def _get_results(self, soup: BeautifulSoup) -> str:
+        return _get_section(soup, "Results")
+
+    def _get_discussion(self, soup: BeautifulSoup) -> str:
+        return _get_section(soup, "Discussion")

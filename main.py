@@ -10,4 +10,15 @@ except RuntimeError as err:
     print(err)
 
 thesis = scrape_usecase.get_thesis()
-print(thesis)
+
+print("abstract")
+print(thesis.abstract)
+
+print("introduction")
+print(thesis.introduction)
+
+print("results")
+print(thesis.results)
+
+print("discussion")
+print(thesis.discussion)

@@ -23,10 +23,15 @@ class ScrapeUseCase(ABC):
         soup = self.__get_soup()
         abstract = self._get_abstract(soup)
         introduction = self._get_introduction(soup)
+        results = self._get_results(soup)
+        discussion = self._get_discussion(soup)
+
         return Thesis(
             self.url,
             delete_brackets(abstract),
-            delete_brackets(introduction)
+            delete_brackets(introduction),
+            delete_brackets(results),
+            delete_brackets(discussion)
         )
 
     def __get_soup(self) -> BeautifulSoup:
@@ -62,6 +67,24 @@ class ScrapeUseCase(ABC):
     def _get_introduction(self, soup: BeautifulSoup) -> str:
         """
         イントロダクションを取得する
+        :param soup:
+        :return:
+        """
+        pass
+
+    @abstractmethod
+    def _get_results(self, soup: BeautifulSoup) -> str:
+        """
+        リザルトを取得する
+        :param soup:
+        :return:
+        """
+        pass
+
+    @abstractmethod
+    def _get_discussion(self, soup: BeautifulSoup) -> str:
+        """
+        ディスカッションを取得する
         :param soup:
         :return:
         """

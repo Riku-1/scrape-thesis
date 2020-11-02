@@ -9,3 +9,5 @@ class Thesis:
     url: str
     abstract: str
     introduction: str
+    results: str
+    discussion: str
