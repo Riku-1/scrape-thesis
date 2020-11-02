@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 urllib3 = "==1.25.11"
 beautifulsoup4 = "==4.9.3"
+lxml = "==4.6.1"
 
 [requires]
 python_version = "3.8"
