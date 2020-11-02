@@ -29,12 +29,7 @@ def _get_section(soup: BeautifulSoup, section_name: str) -> str:
 
 class NatureCommunicationsScrapeUseCase(ScrapeUseCase):
     def _get_abstract(self, soup: BeautifulSoup) -> str:
-        return soup.select_one("#Abs1-content > p").get_text()
+        return _get_section(soup, "Abstract")
 
     def _get_introduction(self, soup: BeautifulSoup) -> str:
-        introductions = soup.select("#Sec1-content > p")
-        _introductions = ""
-        for intro in introductions:
-            _introductions += intro.get_text()
-
-        return _introductions
+        return _get_section(soup, "Introduction")
