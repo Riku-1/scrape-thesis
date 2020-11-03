@@ -145,3 +145,6 @@ dmypy.json
 
 # ide
 .idea
+
+# input file
+input.txt
