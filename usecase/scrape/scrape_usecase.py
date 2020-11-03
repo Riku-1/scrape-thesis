@@ -45,6 +45,10 @@ class ScrapeUseCase(ABC):
         論文のドメインクラスを取得する
         :return:
         """
+        msg = f"{self.url}の情報を整形します..."
+        logger.info(msg)
+        print(msg)
+
         title = self._get_title(self.page)
         abstract = self._get_abstract(self.page)
         introduction = self._get_introduction(self.page)

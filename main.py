@@ -4,8 +4,8 @@ import time
 
 from usecase.scrape.scrape_usecase_factory import get_scrape_usecase
 from domain.thesis import Thesis
-from input_urls import get_urls
-from output_thesis import output_csv
+from usecase.input_urls import get_urls
+from usecase.output_thesis import output_csv
 from setting import SLEEP_TIME_SEC
 
 # logger設定
@@ -50,5 +50,10 @@ for usecase in scrape_usecases:
     thesis_list.append(thesis)
 
 # 出力
+output_num = 0
 for thesis in thesis_list:
-    output_csv(thesis)
+    result = output_csv(thesis)
+    if result:
+        output_num += 1
+
+print(f"{len(urls)}URL中{output_num}個のデータを出力しました")
