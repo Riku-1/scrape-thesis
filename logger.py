@@ -27,22 +27,31 @@ def uncaught_exception(err_type, err_value, traceback) -> None:
 
 def critical(err: Exception, msg: str = "") -> None:
     __out("critical", msg, err)
+    if msg:
+        print(f"CRITICAL: {msg}")
 
 
 def error(msg: Any, err: Optional[Exception] = None) -> None:
     __out("error", msg, err)
+    if msg:
+        print(f"ERROR: {msg}")
 
 
 def warning(msg: Any, err: Optional[Exception] = None) -> None:
     __out("warning", msg, err)
+    if msg:
+        print(f"WARNING: {msg}")
 
 
 def info(msg: Any, err: Optional[Exception] = None) -> None:
     __out("info", msg, err)
+    if msg:
+        print(f"INFO: {msg}")
 
 
 def debug(msg: Any, err: Optional[Exception] = None) -> None:
     __out("debug", msg, err)
+    # デバッグはコンソールに出力しない
 
 
 def __out(method_name: str, msg: Any, err: Optional[Exception] = None) -> None:

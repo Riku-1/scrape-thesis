@@ -11,14 +11,10 @@ def output_csv(thesis: Thesis) -> bool:
     :param thesis:
     :return: 出力に成功したかどうか
     """
-    msg = f"{thesis.url}の情報を出力します..."
-    logger.info(msg)
-    print(msg)
+    logger.info(f"{thesis.url}の情報を出力します...")
 
     if thesis.title == "":
-        msg = f"{thesis.url}のタイトルが空のためファイルを出力できません。出力をスキップします。"
-        logger.error(msg)
-        print(msg)
+        logger.warning(f"{thesis.url}のタイトルが空のためファイルを出力できません。出力をスキップします。")
         return False
 
     filename = space_to_underscore(f"output/{thesis.title}")

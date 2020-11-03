@@ -10,9 +10,7 @@ class NatureCommunicationsScrapeUseCase(ScrapeUseCase):
         elm = soup.select_one(".c-article-title")
 
         if not elm:
-            msg = f"{self.url}のタイトルが取得できませんでした。"
-            logger.warning(msg)
-            print(msg)
+            logger.warning(f"{self.url}のタイトルが取得できませんでした。")
             return ""
 
         return elm.get_text()
@@ -42,9 +40,7 @@ class NatureCommunicationsScrapeUseCase(ScrapeUseCase):
         # textがセクション名（AbstractやIntroduction）の名前のh2要素を取得する（見出し）
         section_name_dom = dom.xpath(f"//h2[text()='{section_name}']")
         if not section_name_dom:
-            warning_message = f"{self.url}の{section_name}が取得できませんでした。"
-            logger.warning(warning_message)
-            print(warning_message)
+            logger.warning(f"{self.url}の{section_name}が取得できませんでした。")
             return ""
 
         # 見出しのidに-contentを加えたものが各セクションの内容のidになるので、これを取得する
