@@ -1,10 +1,8 @@
 import logging
 from typing import Any, Optional
 
-formatter = '%(levelname)s : %(asctime)s : %(message)s'
-
-logging.basicConfig(filename="log/python.log", level=logging.DEBUG, format=formatter)
-logger = logging.getLogger(__name__)
+FORMATTER = '%(levelname)s : %(name)s : %(asctime)s : %(message)s'
+LOG_FILE_PATH = "log/python.log"
 
 
 def uncaught_exception(err_type, err_value, traceback) -> None:
@@ -15,7 +13,9 @@ def uncaught_exception(err_type, err_value, traceback) -> None:
     :param traceback:
     :return:
     """
-    logger.error("Uncaught exception", exc_info=(err_type, err_value, traceback))
+    logging.basicConfig(filename=LOG_FILE_PATH, level=logging.WARNING, format=FORMATTER)
+    sys_logger = logging.getLogger("system")
+    sys_logger.error("Uncaught exception", exc_info=(err_type, err_value, traceback))
 
 
 def critical(err: Exception, msg: str = "") -> None:
@@ -46,6 +46,8 @@ def __out(method_name: str, msg: Any, err: Optional[Exception] = None) -> None:
     :param err:
     :return:
     """
+    logging.basicConfig(filename=LOG_FILE_PATH, level=logging.DEBUG, format=FORMATTER)
+    logger = logging.getLogger(__name__)
     method = getattr(logger, method_name)
 
     if not err:
