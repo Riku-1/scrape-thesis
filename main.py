@@ -24,7 +24,6 @@ if not len(urls):
 # 論文情報取得
 scrape_usecases = []
 for index, url in enumerate(urls):
-    print(index)
     if index != 0:  # 初回はスリープしない
         time.sleep(SLEEP_TIME_SEC)
 
