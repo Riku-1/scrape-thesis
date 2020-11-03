@@ -16,10 +16,10 @@ urls = [
 ]
 
 if not len(urls):
-    msg = "urlがありません。"
+    msg = "urlがありません。プログラムを終了します。"
     logger.warning(msg)
     print(msg)
-    SystemExit()
+    raise SystemExit(1)
 
 # 論文情報取得
 scrape_usecases = []
