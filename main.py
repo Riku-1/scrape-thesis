@@ -4,27 +4,24 @@ import time
 
 from usecase.scrape.scrape_usecase_factory import get_scrape_usecase
 from domain.thesis import Thesis
+from input_urls import get_urls
 from setting import SLEEP_TIME_SEC
 
 # logger設定
 sys.excepthook = logger.uncaught_exception
 
-# TODO: インプットの方式を考える
-urls = [
-    "https://www.nature.com/articles/s41467-020-19293-9",
-    "https://www.nature.com/articles/s41467-020-18077-5"
-]
+# input.txtからurlを取得
+urls = get_urls()
 
 if not len(urls):
-    msg = "urlがありません。"
+    msg = "urlがありません。プログラムを終了します。"
     logger.warning(msg)
     print(msg)
-    SystemExit()
+    raise SystemExit(1)
 
 # 論文情報取得
 scrape_usecases = []
 for index, url in enumerate(urls):
-    print(index)
     if index != 0:  # 初回はスリープしない
         time.sleep(SLEEP_TIME_SEC)
 
