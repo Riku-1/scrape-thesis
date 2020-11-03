@@ -45,6 +45,7 @@ class ScrapeUseCase(ABC):
         論文のドメインクラスを取得する
         :return:
         """
+        title = self._get_title(self.page)
         abstract = self._get_abstract(self.page)
         introduction = self._get_introduction(self.page)
         results = self._get_results(self.page)
@@ -52,11 +53,21 @@ class ScrapeUseCase(ABC):
 
         return Thesis(
             self.url,
+            title,
             delete_brackets(abstract),
             delete_brackets(introduction),
             delete_brackets(results),
             delete_brackets(discussion)
         )
+
+    @abstractmethod
+    def _get_title(self, soup: BeautifulSoup) -> str:
+        """
+        タイトルを取得する
+        :param soup:
+        :return:
+        """
+        pass
 
     @abstractmethod
     def _get_abstract(self, soup: BeautifulSoup) -> str:

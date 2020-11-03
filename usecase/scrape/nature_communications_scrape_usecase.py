@@ -36,6 +36,10 @@ def _get_section(soup: BeautifulSoup, section_name: str) -> str:
 
 
 class NatureCommunicationsScrapeUseCase(ScrapeUseCase):
+    def _get_title(self, soup: BeautifulSoup) -> str:
+        elm = soup.select_one(".c-article-title")
+        return elm.get_text()
+
     def _get_abstract(self, soup: BeautifulSoup) -> str:
         return _get_section(soup, "Abstract")
 
