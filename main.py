@@ -50,5 +50,10 @@ for usecase in scrape_usecases:
     thesis_list.append(thesis)
 
 # 出力
+output_num = 0
 for thesis in thesis_list:
-    output_csv(thesis)
+    result = output_csv(thesis)
+    if result:
+        output_num += 1
+
+print(f"{len(urls)}URL中{output_num}個のデータを出力しました")

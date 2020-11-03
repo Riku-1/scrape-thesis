@@ -5,13 +5,21 @@ from formatting import space_to_underscore
 import logger
 
 
-def output_csv(thesis: Thesis):
-    print(f"{thesis.url}の情報を出力します...")
+def output_csv(thesis: Thesis) -> bool:
+    """
+    論文情報をcsvに出力する
+    :param thesis:
+    :return: 出力に成功したかどうか
+    """
+    msg = f"{thesis.url}の情報を出力します..."
+    logger.info(msg)
+    print(msg)
+
     if thesis.title == "":
-        msg = f"{thesis.url}のタイトルが空のためファイルを出力できません。プログラムを終了します。"
+        msg = f"{thesis.url}のタイトルが空のためファイルを出力できません。出力をスキップします。"
         logger.error(msg)
         print(msg)
-        raise SystemExit(1)
+        return False
 
     filename = space_to_underscore(f"output/{thesis.title}")
     with open(filename, "w") as f:
@@ -40,3 +48,5 @@ def output_csv(thesis: Thesis):
 
         writer.writerow(["discussion"])
         writer.writerow([thesis.discussion])
+
+        return True
