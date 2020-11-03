@@ -8,6 +8,13 @@ from usecase.scrape.scrape_usecase import ScrapeUseCase
 class NatureCommunicationsScrapeUseCase(ScrapeUseCase):
     def _get_title(self, soup: BeautifulSoup) -> str:
         elm = soup.select_one(".c-article-title")
+
+        if not elm:
+            msg = f"{self.url}のタイトルが取得できませんでした。"
+            logger.warning(msg)
+            print(msg)
+            return ""
+
         return elm.get_text()
 
     def _get_abstract(self, soup: BeautifulSoup) -> str:
