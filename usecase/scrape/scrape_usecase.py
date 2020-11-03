@@ -21,9 +21,7 @@ class ScrapeUseCase(ABC):
         beautiful soupを使ってページを取得する
         :return:
         """
-        message = f"{self.url}の情報を取得します..."
-        logger.info(message)
-        print(message)
+        logger.info(f"{self.url}の情報を取得します...")
 
         # header偽装
         headers = {
@@ -45,9 +43,7 @@ class ScrapeUseCase(ABC):
         論文のドメインクラスを取得する
         :return:
         """
-        msg = f"{self.url}の情報を整形します..."
-        logger.info(msg)
-        print(msg)
+        logger.info(f"{self.url}の情報を整形します...")
 
         title = self._get_title(self.page)
         abstract = self._get_abstract(self.page)

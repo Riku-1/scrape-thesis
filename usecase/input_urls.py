@@ -9,9 +9,7 @@ def get_urls() -> [str]:
     try:
         f = open("input.txt", "r")
     except FileNotFoundError as err:
-        msg = "input.txtが存在しません。プログラムを終了します。"
-        logger.error(msg)
-        print(msg)
+        logger.error("input.txtが存在しません。input.txtを配置してからもう一度実行してください。")
         raise SystemExit(1)
 
     data = f.read()

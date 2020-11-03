@@ -17,7 +17,6 @@ urls = get_urls()
 if not len(urls):
     msg = "urlがありません。プログラムを終了します。"
     logger.warning(msg)
-    print(msg)
     raise SystemExit(1)
 
 # 論文情報取得
@@ -31,7 +30,6 @@ for index, url in enumerate(urls):
     except Exception as err:
         msg = f"html取得エラー: {url}のデータが取得できませんでした。"
         logger.warning(msg, err)
-        print(msg)
         continue
 
     scrape_usecases.append(scrape_usecase)
@@ -44,7 +42,6 @@ for usecase in scrape_usecases:
     except RuntimeError as err:
         msg = f"parseエラー: {usecase.url}のデータ処理に失敗しました。"
         logger.warning(msg, err)
-        print(msg)
         continue
 
     thesis_list.append(thesis)
@@ -56,4 +53,4 @@ for thesis in thesis_list:
     if result:
         output_num += 1
 
-print(f"{len(urls)}URL中{output_num}個のデータを出力しました")
+logger.info(f"{len(urls)}URL中{output_num}個のデータを出力しました")
