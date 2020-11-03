@@ -15,6 +15,7 @@ def output_csv(thesis: Thesis):
 
     filename = space_to_underscore(f"output/{thesis.title}")
     with open(filename, "w") as f:
+        # NOTE: writer = csv.writer(f, quoting=csv.QUOTE_MINIMAL) とすると""なしで出力できるが、出力が必要な場合エラーになる
         writer = csv.writer(f)
 
         writer.writerow(["url"])
