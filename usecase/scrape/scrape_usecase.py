@@ -1,7 +1,4 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from setting import SLEEP_TIME_SEC
-import time
 
 from bs4 import BeautifulSoup
 import urllib3
@@ -11,42 +8,23 @@ from formatting import delete_brackets
 import logger
 
 
-@dataclass
 class ScrapeUseCase(ABC):
     """"
     論文スクレイピングユースケースの基底クラス
     """
-    url: str
+    def __init__(self, url: str) -> None:
+        self.url = url
+        self.page: BeautifulSoup = self.__get_page()
 
-    def get_thesis(self) -> Thesis:
+    def __get_page(self) -> BeautifulSoup:
         """
-        論文のドメインクラスを取得する
+        beautiful soupを使ってページを取得する
         :return:
         """
         message = f"{self.url}の情報を取得します..."
         logger.info(message)
         print(message)
-        time.sleep(SLEEP_TIME_SEC)  # WARNING: 業務妨害対策
 
-        soup = self.__get_soup()
-        abstract = self._get_abstract(soup)
-        introduction = self._get_introduction(soup)
-        results = self._get_results(soup)
-        discussion = self._get_discussion(soup)
-
-        return Thesis(
-            self.url,
-            delete_brackets(abstract),
-            delete_brackets(introduction),
-            delete_brackets(results),
-            delete_brackets(discussion)
-        )
-
-    def __get_soup(self) -> BeautifulSoup:
-        """
-        beautiful soupを使ってページを取得する
-        :return:
-        """
         # header偽装
         headers = {
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0"
@@ -61,6 +39,24 @@ class ScrapeUseCase(ABC):
             sup.decompose()
 
         return soup
+
+    def get_thesis(self) -> Thesis:
+        """
+        論文のドメインクラスを取得する
+        :return:
+        """
+        abstract = self._get_abstract(self.page)
+        introduction = self._get_introduction(self.page)
+        results = self._get_results(self.page)
+        discussion = self._get_discussion(self.page)
+
+        return Thesis(
+            self.url,
+            delete_brackets(abstract),
+            delete_brackets(introduction),
+            delete_brackets(results),
+            delete_brackets(discussion)
+        )
 
     @abstractmethod
     def _get_abstract(self, soup: BeautifulSoup) -> str:

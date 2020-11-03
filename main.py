@@ -1,8 +1,10 @@
 import logger
 import sys
+import time
 
 from usecase.scrape.scrape_usecase_factory import get_scrape_usecase
 from domain.thesis import Thesis
+from setting import SLEEP_TIME_SEC
 
 # logger設定
 sys.excepthook = logger.uncaught_exception
@@ -13,15 +15,38 @@ urls = [
     "https://www.nature.com/articles/s41467-020-18077-5"
 ]
 
+if not len(urls):
+    msg = "urlがありません。"
+    logger.warning(msg)
+    print(msg)
+    SystemExit()
+
 # 論文情報取得
-thesis_list: [Thesis] = []
-for url in urls:
+scrape_usecases = []
+for index, url in enumerate(urls):
+    print(index)
+    if index != 0:  # 初回はスリープしない
+        time.sleep(SLEEP_TIME_SEC)
+
     try:
         scrape_usecase = get_scrape_usecase(url)
-        thesis = scrape_usecase.get_thesis()
+    except Exception as err:
+        msg = f"html取得エラー: {url}のデータが取得できませんでした。"
+        logger.warning(msg, err)
+        print(msg)
+        continue
+
+    scrape_usecases.append(scrape_usecase)
+
+# 論文整形
+thesis_list: [Thesis] = []
+for usecase in scrape_usecases:
+    try:
+        thesis = usecase.get_thesis()
     except RuntimeError as err:
-        logger.warning(err)
-        print(err)
+        msg = f"parseエラー: {usecase.url}のデータ処理に失敗しました。"
+        logger.warning(msg, err)
+        print(msg)
         continue
 
     thesis_list.append(thesis)
