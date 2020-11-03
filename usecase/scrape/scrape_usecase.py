@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from setting import SLEEP_TIME_SEC
+import time
 
 from bs4 import BeautifulSoup
 import urllib3
 
 from domain.thesis import Thesis
 from formatting import delete_brackets
+import logger
 
 
 @dataclass
@@ -20,6 +23,11 @@ class ScrapeUseCase(ABC):
         論文のドメインクラスを取得する
         :return:
         """
+        message = f"{self.url}の情報を取得します..."
+        logger.info(message)
+        print(message)
+        time.sleep(SLEEP_TIME_SEC)  # WARNING: 業務妨害対策
+
         soup = self.__get_soup()
         abstract = self._get_abstract(soup)
         introduction = self._get_introduction(soup)
