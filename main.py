@@ -50,6 +50,8 @@ for usecase in scrape_usecases:
 
 # 出力
 for thesis in thesis_list:
+    print("title")
+    print(thesis.title)
 
     print("abstract")
     print(thesis.abstract)
