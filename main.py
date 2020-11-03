@@ -5,6 +5,7 @@ import time
 from usecase.scrape.scrape_usecase_factory import get_scrape_usecase
 from domain.thesis import Thesis
 from input_urls import get_urls
+from output_thesis import output_csv
 from setting import SLEEP_TIME_SEC
 
 # logger設定
@@ -50,17 +51,4 @@ for usecase in scrape_usecases:
 
 # 出力
 for thesis in thesis_list:
-    print("title")
-    print(thesis.title)
-
-    print("abstract")
-    print(thesis.abstract)
-
-    print("introduction")
-    print(thesis.introduction)
-
-    print("results")
-    print(thesis.results)
-
-    print("discussion")
-    print(thesis.discussion)
+    output_csv(thesis)
