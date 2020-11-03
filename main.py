@@ -2,6 +2,7 @@ import logger
 import sys
 from usecase.scrape.scrape_usecase_factory import get_scrape_usecase
 
+# logger設定
 sys.excepthook = logger.uncaught_exception
 
 # TODO: インプットの方式を考える
