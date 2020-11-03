@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from setting import SLEEP_TIME_SEC
-import time
 
 from bs4 import BeautifulSoup
 import urllib3
@@ -18,17 +16,11 @@ class ScrapeUseCase(ABC):
     """
     url: str
 
-    def get_thesis(self) -> Thesis:
+    def get_thesis(self, soup: BeautifulSoup) -> Thesis:
         """
         論文のドメインクラスを取得する
         :return:
         """
-        message = f"{self.url}の情報を取得します..."
-        logger.info(message)
-        print(message)
-        time.sleep(SLEEP_TIME_SEC)  # WARNING: 業務妨害対策
-
-        soup = self.__get_soup()
         abstract = self._get_abstract(soup)
         introduction = self._get_introduction(soup)
         results = self._get_results(soup)
@@ -42,11 +34,15 @@ class ScrapeUseCase(ABC):
             delete_brackets(discussion)
         )
 
-    def __get_soup(self) -> BeautifulSoup:
+    def get_soup(self) -> BeautifulSoup:
         """
         beautiful soupを使ってページを取得する
         :return:
         """
+        message = f"{self.url}の情報を取得します..."
+        logger.info(message)
+        print(message)
+
         # header偽装
         headers = {
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0"
