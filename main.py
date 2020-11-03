@@ -18,7 +18,7 @@ thesis_list: [Thesis] = []
 for url in urls:
     try:
         scrape_usecase = get_scrape_usecase(url)
-        page = scrape_usecase.get_soup()
+        page = scrape_usecase.get_page()
         thesis = scrape_usecase.get_thesis(page)
     except RuntimeError as err:
         logger.warning(err)
