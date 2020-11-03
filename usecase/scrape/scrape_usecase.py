@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 
 from bs4 import BeautifulSoup
 import urllib3
@@ -9,14 +8,15 @@ from formatting import delete_brackets
 import logger
 
 
-@dataclass
 class ScrapeUseCase(ABC):
     """"
     論文スクレイピングユースケースの基底クラス
     """
-    url: str
+    def __init__(self, url: str) -> None:
+        self.url = url
+        self.page: BeautifulSoup = self.__get_page()
 
-    def get_page(self) -> BeautifulSoup:
+    def __get_page(self) -> BeautifulSoup:
         """
         beautiful soupを使ってページを取得する
         :return:
@@ -40,15 +40,15 @@ class ScrapeUseCase(ABC):
 
         return soup
 
-    def get_thesis(self, soup: BeautifulSoup) -> Thesis:
+    def get_thesis(self) -> Thesis:
         """
         論文のドメインクラスを取得する
         :return:
         """
-        abstract = self._get_abstract(soup)
-        introduction = self._get_introduction(soup)
-        results = self._get_results(soup)
-        discussion = self._get_discussion(soup)
+        abstract = self._get_abstract(self.page)
+        introduction = self._get_introduction(self.page)
+        results = self._get_results(self.page)
+        discussion = self._get_discussion(self.page)
 
         return Thesis(
             self.url,
