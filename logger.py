@@ -5,6 +5,7 @@ FORMATTER = logging.Formatter('%(levelname)s : %(name)s : %(asctime)s : %(messag
 LOG_FILE_PATH = "log/python.log"
 
 
+# TODO: なんか動いてないので直す
 def uncaught_exception(err_type, err_value, traceback) -> None:
     """
     補足されていない場合の例外処理

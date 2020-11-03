@@ -15,3 +15,12 @@ def delete_brackets(sentence: str) -> str:
     :return: 括弧削除後の文字列
     """
     return re.sub(r"\((?!Fig).+?\)", "", sentence)
+
+
+def space_to_underscore(sentence: str) -> str:
+    """
+    スペースをアンダースコア（_）に変換する
+    :param sentence:
+    :return:
+    """
+    return sentence.replace(" ", "_")
