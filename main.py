@@ -4,6 +4,7 @@ import time
 
 from usecase.scrape.scrape_usecase_factory import get_scrape_usecase
 from domain.thesis import Thesis
+from formatting import delete_brackets
 from infrastructure.file.input_urls import get_urls
 from infrastructure.file.output_thesis import output_csv
 from setting import SLEEP_TIME_SEC
@@ -38,7 +39,21 @@ for index, url in enumerate(urls):
 thesis_list: [Thesis] = []
 for usecase in scrape_usecases:
     try:
-        thesis = usecase.get_thesis()
+        logger.info(f"{usecase.url}の情報を整形します...")
+        title = usecase.get_title()
+        abstract = usecase.get_abstract()
+        introduction = usecase.get_introduction()
+        results = usecase.get_results()
+        discussion = usecase.get_discussion()
+
+        thesis = Thesis(
+            usecase.url,
+            title,
+            delete_brackets(abstract),
+            delete_brackets(introduction),
+            delete_brackets(results),
+            delete_brackets(discussion)
+        )
     except RuntimeError as err:
         msg = f"parseエラー: {usecase.url}のデータ処理に失敗しました。"
         logger.warning(msg, err)

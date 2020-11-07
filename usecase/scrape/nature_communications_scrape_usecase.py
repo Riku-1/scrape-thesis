@@ -6,7 +6,7 @@ from usecase.scrape.scrape_usecase import ScrapeUseCase
 
 
 class NatureCommunicationsScrapeUseCase(ScrapeUseCase):
-    def _get_title(self) -> str:
+    def get_title(self) -> str:
         elm = self.page.select_one(".c-article-title")
 
         if not elm:
@@ -15,16 +15,16 @@ class NatureCommunicationsScrapeUseCase(ScrapeUseCase):
 
         return elm.get_text()
 
-    def _get_abstract(self) -> str:
+    def get_abstract(self) -> str:
         return self.__get_section("Abstract")
 
-    def _get_introduction(self) -> str:
+    def get_introduction(self) -> str:
         return self.__get_section("Introduction")
 
-    def _get_results(self) -> str:
+    def get_results(self) -> str:
         return self.__get_section("Results")
 
-    def _get_discussion(self) -> str:
+    def get_discussion(self) -> str:
         return self.__get_section("Discussion")
 
     def __get_section(self, section_name: str) -> str:
