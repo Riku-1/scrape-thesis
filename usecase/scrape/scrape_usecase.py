@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 
 from bs4 import BeautifulSoup
-import urllib3
 
 from domain.thesis import Thesis
 from formatting import delete_brackets
+from infrastructure.web.get_html import get_soup
 import logger
 
 
@@ -14,29 +14,7 @@ class ScrapeUseCase(ABC):
     """
     def __init__(self, url: str) -> None:
         self.url = url
-        self.page: BeautifulSoup = self.__get_page()
-
-    def __get_page(self) -> BeautifulSoup:
-        """
-        beautiful soupを使ってページを取得する
-        :return:
-        """
-        logger.info(f"{self.url}の情報を取得します...")
-
-        # header偽装
-        headers = {
-            "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:47.0) Gecko/20100101 Firefox/47.0"
-        }
-
-        http = urllib3.PoolManager()
-        r: urllib3.HTTPResponse = http.request("GET", self.url, headers=headers)
-        soup = BeautifulSoup(r.data, "html.parser")
-
-        # 上付き文字を消去
-        for sup in soup("sup"):
-            sup.decompose()
-
-        return soup
+        self.page = get_soup(url)
 
     def get_thesis(self) -> Thesis:
         """
