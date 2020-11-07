@@ -21,7 +21,7 @@ def translate(text_list: [str]) -> [str]:
         "target_lang": "JA",
     }
 
-    res = requests.get(DEEPL_TRANSLATE_URL, params)
+    res = requests.post(DEEPL_TRANSLATE_URL, params)
 
     if res.status_code == 403:
         raise Exception("DeepLの認証に失敗しました。")
@@ -31,7 +31,6 @@ def translate(text_list: [str]) -> [str]:
         raise Exception("DeepL APIがビジー状態です。しばらく待ってから再度実行してください。")
     if res.status_code == 456:
         raise Exception("DeepLの翻訳上限に達しました。")
-    print(res.json())
 
     translated_list = []
     for elm in res.json()["translations"]:
