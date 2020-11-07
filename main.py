@@ -16,8 +16,7 @@ sys.excepthook = logger.uncaught_exception
 urls = get_urls()
 
 if not len(urls):
-    msg = "urlがありません。プログラムを終了します。"
-    logger.warning(msg)
+    logger.warning("urlがありません。プログラムを終了します。")
     raise SystemExit(1)
 
 # 論文情報取得
@@ -29,8 +28,7 @@ for index, url in enumerate(urls):
     try:
         scrape_usecase = get_scrape_usecase(url)
     except Exception as err:
-        msg = f"html取得エラー: {url}のデータが取得できませんでした。"
-        logger.warning(msg, err)
+        logger.warning(f"html取得エラー: {url}のデータが取得できませんでした。", err)
         continue
 
     scrape_usecases.append(scrape_usecase)
@@ -38,6 +36,7 @@ for index, url in enumerate(urls):
 # 論文整形
 thesis_list: [Thesis] = []
 for usecase in scrape_usecases:
+    logger.info(f"{usecase.url}の情報を整形します...")
     try:
         logger.info(f"{usecase.url}の情報を整形します...")
         title = usecase.get_title()
@@ -55,8 +54,7 @@ for usecase in scrape_usecases:
             delete_brackets(discussion)
         )
     except RuntimeError as err:
-        msg = f"parseエラー: {usecase.url}のデータ処理に失敗しました。"
-        logger.warning(msg, err)
+        logger.warning(f"parseエラー: {usecase.url}のデータ処理に失敗しました。", err)
         continue
 
     thesis_list.append(thesis)
