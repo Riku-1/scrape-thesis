@@ -32,17 +32,21 @@ def output_csv(thesis: Thesis) -> bool:
 
         writer.writerow(["abstract"])
         writer.writerow([thesis.abstract])
+        writer.writerow([thesis.abstract_translated])
         writer.writerow([])
 
         writer.writerow(["introduction"])
         writer.writerow([thesis.introduction])
+        writer.writerow([thesis.introduction_translated])
         writer.writerow([])
 
         writer.writerow(["results"])
         writer.writerow([thesis.results])
+        writer.writerow([thesis.results_translated])
         writer.writerow([])
 
         writer.writerow(["discussion"])
         writer.writerow([thesis.discussion])
+        writer.writerow([thesis.discussion_translated])
 
         return True
