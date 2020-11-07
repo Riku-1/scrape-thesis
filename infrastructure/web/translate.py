@@ -1,5 +1,6 @@
 import requests
 
+import logger
 import setting
 
 DEEPL_TRANSLATE_URL = "https://api.deepl.com/v2/translate"
@@ -24,13 +25,21 @@ def translate(text_list: [str]) -> [str]:
     res = requests.post(DEEPL_TRANSLATE_URL, params)
 
     if res.status_code == 403:
-        raise Exception("DeepLの認証に失敗しました。")
+        msg = "DeepLの認証に失敗しました"
+        logger.warning(msg)
+        raise Exception(msg)
     if res.status_code == 413:
-        raise Exception("テキストのサイズが多すぎます。")
+        msg = "テキストのサイズが多すぎます。"
+        logger.warning(msg)
+        raise Exception(msg)
     if res.status_code == 429:
-        raise Exception("DeepL APIがビジー状態です。しばらく待ってから再度実行してください。")
+        msg = "DeepL APIがビジー状態です。しばらく待ってから再度実行してください。"
+        logger.warning(msg)
+        raise Exception(msg)
     if res.status_code == 456:
-        raise Exception("DeepLの翻訳上限に達しました。")
+        msg = "DeepLの翻訳上限に達しました。"
+        logger.warning(msg)
+        raise Exception(msg)
 
     translated_list = []
     for elm in res.json()["translations"]:
