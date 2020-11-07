@@ -4,8 +4,8 @@ import time
 
 from usecase.scrape.scrape_usecase_factory import get_scrape_usecase
 from domain.thesis import Thesis
-from usecase.input_urls import get_urls
-from usecase.output_thesis import output_csv
+from infrastructure.file.input_urls import get_urls
+from infrastructure.file.output_thesis import output_csv
 from setting import SLEEP_TIME_SEC
 
 # logger設定
