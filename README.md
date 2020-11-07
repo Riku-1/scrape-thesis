@@ -20,6 +20,10 @@
     ```shell script
     pipenv install
     ```
+1. .envファイルの作成
+    .env.exampleをコピーし、.envという名前にリネームしてください。  
+    その後、DEEPL_API_KEYにDeepLのAPIキーを入力してください。  
+    (APIキーは一般チャンネルのWikiにあります。)
     
 1. input.txtにデータを取得したい論文のurlを書きます  
     このフォルダにinput.txtというファイルを作成してください。  
