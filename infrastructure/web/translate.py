@@ -27,6 +27,10 @@ def translate(text_list: [str], source_lang="") -> [str]:
 
     if res.status_code == 403:
         raise Exception("DeepLの認証に失敗しました。")
+    if res.status_code == 413:
+        raise Exception("テキストのサイズが多すぎます。")
+    if res.status_code == 429:
+        raise Exception("DeepL APIがビジー状態です。しばらく待ってから再度実行してください。")
     if res.status_code == 456:
         raise Exception("DeepLの翻訳上限に達しました。")
 
