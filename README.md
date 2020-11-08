@@ -9,7 +9,7 @@
 1. pipenvをインストール  
     pipenvをインストールします。多分
     ```shell script
-    pip freeze pipenv
+    pip install pipenv
     ```
     とかですが環境によります。
     
